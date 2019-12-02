@@ -19,8 +19,6 @@ function onSuccess(contacts) {
         var li = document.createElement('li');   
         li.innerHTML = "<a href=\"tel://"+phoneNumber+"\">"+name+"</a>";   
         ul.appendChild(li);  
-        nombre = document.getElementById("nomb");
-        alert(nombre)
     }  
 };   
 function onError() {  
@@ -35,34 +33,30 @@ function init2(){document.addEventListener("deviceready", onDeviceReady2, false)
 }
 // device APIs are available
 //
-var nombre = null;
-var apelli = null;
-var numero = null;
+
 function onDeviceReady2() {
     // create
-    nombre = document.getElementById("nomb");
-    apelli = document.getElementById("ap");
-    numero = document.getElementById("num");
+  
     var contact = navigator.contacts.create();
-    contact.displayName = nombre;
-    contact.nickname = nombre ;                 // specify both to support all devices
+    contact.displayName = "Prueba";
+    contact.nickname = "prueba";                 // specify both to support all devices
     var name = new ContactName();
-    name.givenName = nombre;
-    name.familyName = apelli;
+    name.givenName = "Prueba";
+    name.familyName = "Programacion";
     contact.name = name;
     var phoneNumbers = [];
-   
-    phoneNumbers[0] = new ContactField('mobile', numero, true); // preferred number
- 
+    phoneNumbers[0] = new ContactField('work', '488-106-1452', false);
+    phoneNumbers[1] = new ContactField('mobile', '488-102-1236', true); // preferred number
+    phoneNumbers[2] = new ContactField('home', '488-145-7896', false);
 myContact.phoneNumbers = phoneNumbers;
     // save
     contact.save(onSaveSuccess2,onSaveError2);
 
     // clone
     var clone = contact.clone();
-    clone.name.givenName = "John";
-    console.log("Original contact name = " + contact.name.givenName);
-    console.log("Cloned contact name = " + clone.name.givenName);
+    clone.name.givenName = "Prueba1";
+    alert("Original contact name = " + contact.name.givenName);
+    alert("Cloned contact name = " + clone.name.givenName);
 
     // remove
     contact.remove(onRemoveSuccess,onRemoveError);
@@ -95,18 +89,10 @@ function onRemoveError(contactError) {
 </head>  
 <body >  
     <h1>Hola amigos. Esta es mi agenda actual:</h1>  
-    <from name="form" action="" method="get">
-    <label>Nombre</label>
-    <input type="text" name="nomb" id="nomb"><br>
-    <label>Apellido</label>
-    <input type="text" name="ap" id="ap"><br>
-    <label>Nombre</label>
-    <input type="text" name="num" id="num"><br>
-    
+   
 </from>
     <button onclick="init()">Listar contacto</button>
     <button onclick="init2()">Crear contacto</button>
     <ul id="contactList"></ul>  
-    
 </body>  
 </html>
