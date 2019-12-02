@@ -19,6 +19,8 @@ function onSuccess(contacts) {
         var li = document.createElement('li');   
         li.innerHTML = "<a href=\"tel://"+phoneNumber+"\">"+name+"</a>";   
         ul.appendChild(li);  
+        nombre = document.getElementById("nomb");
+        alert(nombre)
     }  
 };   
 function onError() {  
@@ -29,7 +31,7 @@ function init(){
 }   
 
 
-function init2(){document.addEventListener2("deviceready", onDeviceReady2, false);
+function init2(){document.addEventListener("deviceready", onDeviceReady2, false);
 }
 // device APIs are available
 //
@@ -49,9 +51,9 @@ function onDeviceReady2() {
     name.familyName = apelli;
     contact.name = name;
     var phoneNumbers = [];
-    phoneNumbers[0] = new ContactField('work', numero, false);
-    phoneNumbers[1] = new ContactField('mobile', numero, true); // preferred number
-    phoneNumbers[2] = new ContactField('home', numero, false);
+   
+    phoneNumbers[0] = new ContactField('mobile', numero, true); // preferred number
+ 
 myContact.phoneNumbers = phoneNumbers;
     // save
     contact.save(onSaveSuccess2,onSaveError2);
@@ -95,15 +97,16 @@ function onRemoveError(contactError) {
     <h1>Hola amigos. Esta es mi agenda actual:</h1>  
     <from name="form" action="" method="get">
     <label>Nombre</label>
-    <input type="text" name="nomb" id="nomb">
+    <input type="text" name="nomb" id="nomb"><br>
     <label>Apellido</label>
-    <input type="text" name="ap" id="ap">
+    <input type="text" name="ap" id="ap"><br>
     <label>Nombre</label>
-    <input type="text" name="num" id="num">
+    <input type="text" name="num" id="num"><br>
     
 </from>
     <button onclick="init()">Listar contacto</button>
     <button onclick="init2()">Crear contacto</button>
     <ul id="contactList"></ul>  
+    
 </body>  
 </html>
