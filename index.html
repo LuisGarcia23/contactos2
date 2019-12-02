@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>  
+<html>  
+<head>  
+<title>Contacts</title>  
+<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+<script type="text/javascript" charset="utf-8">
+function onDeviceReady(){  
+    var options = new ContactFindOptions();   
+    options.filter="";  
+    options.multiple=true;   
+    var fields = ["phoneNumbers", "name"];   
+    navigator.contacts.find(fields, onSuccess, onError, options);  
+}   
+function onSuccess(contacts) {  
+    var ul = document.getElementById("contactList");   
+    for(var index=0;index<=contacts.length;index++) {  
+        var name = contacts[index].name.formatted;   
+        var phoneNumber = contacts[index].phoneNumbers[0].value;   
+        var li = document.createElement('li');   
+        li.innerHTML = "<a href=\"tel://"+phoneNumber+"\">"+name+"</a>";   
+        ul.appendChild(li);  
+    }  
+};   
+function onError() {  
+    alert('onError!');  
+};  
+function init(){  
+    document.addEventListener("deviceready", onDeviceReady, false);  
+}   
+
+
+function init2(){document.addEventListener2("deviceready", onDeviceReady2, false);
+}
+// device APIs are available
+//
+var nombre = null;
+var apelli = null;
+var numero = null;
+function onDeviceReady2() {
+    // create
+    nombre = document.getElementById("nomb");
+    apelli = document.getElementById("ap");
+    numero = document.getElementById("num");
+    var contact = navigator.contacts.create();
+    contact.displayName = nombre;
+    contact.nickname = nombre ;                 // specify both to support all devices
+    var name = new ContactName();
+    name.givenName = nombre;
+    name.familyName = apelli;
+    contact.name = name;
+    var phoneNumbers = [];
+    phoneNumbers[0] = new ContactField('work', numero, false);
+    phoneNumbers[1] = new ContactField('mobile', numero, true); // preferred number
+    phoneNumbers[2] = new ContactField('home', numero, false);
+myContact.phoneNumbers = phoneNumbers;
+    // save
+    contact.save(onSaveSuccess2,onSaveError2);
+
+    // clone
+    var clone = contact.clone();
+    clone.name.givenName = "John";
+    console.log("Original contact name = " + contact.name.givenName);
+    console.log("Cloned contact name = " + clone.name.givenName);
+
+    // remove
+    contact.remove(onRemoveSuccess,onRemoveError);
+}
+
+// onSaveSuccess: Get a snapshot of the current contacts
+//
+function onSaveSuccess2(contact) {
+    alert("Save Success");
+}
+
+// onSaveError: Failed to get the contacts
+//
+function onSaveError2(contactError) {
+    alert("Error = " + contactError.code);
+}
+
+// onRemoveSuccess: Get a snapshot of the current contacts
+//
+function onRemoveSuccess(contacts) {
+    alert("Removal Success");
+}
+
+// onRemoveError: Failed to get the contacts
+//
+function onRemoveError(contactError) {
+    alert("Error = " + contactError.code);
+}
+</script>  
+</head>  
+<body >  
+    <h1>Hola amigos. Esta es mi agenda actual:</h1>  
+    <from name="form" action="" method="get">
+    <label>Nombre</label>
+    <input type="text" name="nomb" id="nomb">
+    <label>Apellido</label>
+    <input type="text" name="ap" id="ap">
+    <label>Nombre</label>
+    <input type="text" name="num" id="num">
+    
+</from>
+    <button onclick="init()">Listar contacto</button>
+    <button onclick="init2()">Crear contacto</button>
+    <ul id="contactList"></ul>  
+</body>  
+</html>
